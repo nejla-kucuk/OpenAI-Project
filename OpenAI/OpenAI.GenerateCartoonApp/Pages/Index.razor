@@ -1,0 +1,237 @@
+﻿@page "/"
+@using OpenAI.ObjectModels.RequestModels
+@using OpenAI.ObjectModels
+@using global::OpenAI.Interfaces
+@inject IOpenAIService OpenAIService
+
+<PageTitle>Cartoon Genator App</PageTitle>
+
+<div class="container">
+
+	<div class="header">
+		<h3>Cartoon Generator</h3>
+	</div>
+
+
+	<div class="headline">
+		<p>
+			Write your description, let's bring your imagination to life! 
+			Creating cartoons and stories is now a breeze. 
+			Try it out and unleash your creativity!
+		</p>
+	</div>
+
+	<hr class="divider" />
+
+	<div class="form-group">
+		<label for="promptInput">Prompt</label>
+		<textarea id="promptInput" @bind="usersPrompt" class="form-control" rows="3">Prompt</textarea>
+	</div>
+
+	<div class="form-group">
+		<label for="exCountInput">Number of Images</label>
+		<input id="exCountInput" @bind="imageCount" class="form-control" type="number" />
+	</div>
+
+	@if (!isLoading)
+	{
+		<button class="btn btn-primary" @onclick="GenerateCartoon">Generate Images</button>
+
+		<div class="picture-container" @key="generatedImages">
+			@if (generatedImages is not null && generatedImages.Any())
+			{
+				<div class="animated-pic-container">
+
+					@foreach (var image in generatedImages)
+					{
+						<img class="dall-e-picture" src="@image" alt="Generated DALL-E Image" />
+					}
+				</div>
+			}
+		</div>
+
+		<div class="text-content" @key="generatedTexts">
+			<p>@generatedTexts</p>
+		</div>
+
+	}
+	else
+	{
+		<div class="text-center">
+			<img class="img-thumbnail" src="./img/loading2.gif" />
+			<p>Loading animation is created by <a src="https://dribbble.com/shots/2055128-Hop-Loading">Dawson</a></p>
+		</div>
+	}
+
+
+</div>
+
+@code {
+	private bool isLoading = false;
+	private string usersPrompt = string.Empty;
+	private int imageCount = 3;
+	private List<string> generatedImages = new List<string>();
+	private string generatedTexts = string.Empty;
+
+	private async Task GenerateCartoon()
+	{
+		try
+		{
+			isLoading = true;
+
+			if (string.IsNullOrEmpty(usersPrompt) || string.IsNullOrWhiteSpace(usersPrompt))
+				return;
+
+
+			if (imageCount < 1 || imageCount > 6)
+				return;
+
+
+			var imageResult = await OpenAIService.Image.CreateImage(new ImageCreateRequest
+				{
+					Prompt = usersPrompt,											// görselin içeriği
+					N = imageCount,													// görsel sayısı
+					Size = StaticValues.ImageStatics.Size.Size256,					// görsel boyutu (256x256, 512x512, 1024x1024)
+					ResponseFormat = StaticValues.ImageStatics.ResponseFormat.Url,	// görselin URL
+					User = "TestUser"												// kullanıcı
+				});
+
+
+			var completionResult = await OpenAIService.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
+				{
+					Messages = new List<ChatMessage>   
+				{
+					ChatMessage.FromUser(usersPrompt+ " Can you please create a story that suits the description?")
+				},
+					Model = Models.Gpt_3_5_Turbo,     // openAI Modeli
+					MaxTokens = 500                   // metnin maksimum karakter sayısı 
+				});
+
+
+			if (completionResult.Successful)
+			{
+				generatedTexts = completionResult.Choices.First().Message.Content;
+			}
+
+			if (imageResult.Successful)
+			{
+				generatedImages = imageResult.Results.Select(r => r.Url).ToList();
+			}
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine(e);
+			throw;
+
+		}
+		finally
+		{
+			isLoading = false;
+		}
+	}
+
+
+}
+
+<style>
+	body {
+		font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+		background-color: #f9f9f9;
+		margin: 0;
+		padding: 0;
+	}
+
+	.container {
+		max-width: 600px;
+		margin: 30px auto;
+		padding: 20px;
+		background-color: #fff;
+		box-shadow: 0 0 10px rgba(255, 105, 180, 0.3);
+		border-radius: 8px;
+	}
+
+	.header {
+		text-align: center;
+		margin-bottom: 20px;
+	}
+
+	.headline {
+		font-size: 16px;
+		font-weight: 500;
+		color: #333;
+		margin-bottom: 20px;
+	}
+
+	.divider {
+		margin: 20px 0;
+		border: none;
+		height: 1px;
+		background-color: #eee;
+	}
+
+	.form-group {
+		margin-bottom: 20px;
+	}
+
+	label {
+		font-weight: bold;
+		color: #555;
+	}
+
+	textarea,
+	input {
+		width: 100%;
+		padding: 10px;
+		font-size: 14px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+	}
+
+	.btn {
+		display: block;
+		width: 100%;
+		padding: 10px;
+		background-color: #ff69b4;
+		color: #fff;
+		text-align: center;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+	}
+
+	.btn:hover {
+			background-color: #fff;
+			color: #ff69b4;
+			transition: background-color 0.3s ease, color 0.3s ease;
+	}
+
+
+	.picture-container {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		margin-top: 20px;
+	}
+
+	.dall-e-picture {
+		margin: 10px;
+		border-radius: 4px;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+	}
+
+	.text-content {
+		margin-top: 20px;
+		text-align: center;
+	}
+
+	.text-center {
+		text-align: center;
+		margin-top: 20px;
+	}
+
+	.img-thumbnail {
+		max-width: 100%;
+		height: auto;
+		border: none;
+	}
+</style>

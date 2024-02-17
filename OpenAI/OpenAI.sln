@@ -5,7 +5,9 @@ VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAI.ConsoleClient", "OpenAI.ConsoleClient\OpenAI.ConsoleClient.csproj", "{03F265B3-6066-412F-86A7-1F7974FB5367}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenAI.ImageGeneratorApp", "OpenAI.ImageGeneratorApp\OpenAI.ImageGeneratorApp.csproj", "{49072D3A-DF73-41BA-95D9-95A5B6936DDA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAI.ImageGeneratorApp", "OpenAI.ImageGeneratorApp\OpenAI.ImageGeneratorApp.csproj", "{49072D3A-DF73-41BA-95D9-95A5B6936DDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenAI.GenerateCartoonApp", "OpenAI.GenerateCartoonApp\OpenAI.GenerateCartoonApp.csproj", "{213FE60F-E12D-4006-AAC5-56AF20EB5CD1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{49072D3A-DF73-41BA-95D9-95A5B6936DDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49072D3A-DF73-41BA-95D9-95A5B6936DDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49072D3A-DF73-41BA-95D9-95A5B6936DDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{213FE60F-E12D-4006-AAC5-56AF20EB5CD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{213FE60F-E12D-4006-AAC5-56AF20EB5CD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{213FE60F-E12D-4006-AAC5-56AF20EB5CD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{213FE60F-E12D-4006-AAC5-56AF20EB5CD1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
