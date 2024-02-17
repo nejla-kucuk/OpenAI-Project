@@ -9,6 +9,6 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
-builder.Services.AddOpenAIService(opt => opt.ApiKey = "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");
+builder.Services.AddOpenAIService(opt => opt.ApiKey = "");
 
 await builder.Build().RunAsync();
