@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "0+0xGN/5C76z7pjzbT7viZsOn0ZKUWLgQdnRWzR4Br+d5VBiEPgIIAgkRR7QKvBXUeYlujNGQPy2NASYHnPyeA==",
+  "dgSpecHash": "pIYiN31bcV9V5hONvz4wrB6cVpnKcY9CtIMwLHat7lcwYBDp6JcYs5p34FWfCPj10sfhIQqWyy3SiFp10/HohA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Asus\\source\\repos\\OpenAI&ChatGPT\\OpenAI\\OpenAI.ConsoleClient\\OpenAI.ConsoleClient.csproj",
+  "projectFilePath": "C:\\Users\\Asus\\source\\repos\\OpenAI&ChatGPT\\OpenAI-Project\\OpenAI\\OpenAI.ConsoleClient\\OpenAI.ConsoleClient.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Asus\\.nuget\\packages\\betalgo.openai\\7.4.6\\betalgo.openai.7.4.6.nupkg.sha512",
     "C:\\Users\\Asus\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\7.0.0\\microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",

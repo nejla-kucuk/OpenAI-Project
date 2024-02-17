@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Asus\\source\\repos\\OpenAI&ChatGPT\\OpenAI\\OpenAI.ConsoleClient\\OpenAI.ConsoleClient.csproj": {}
+    "C:\\Users\\Asus\\source\\repos\\OpenAI&ChatGPT\\OpenAI-Project\\OpenAI\\OpenAI.ConsoleClient\\OpenAI.ConsoleClient.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Asus\\source\\repos\\OpenAI&ChatGPT\\OpenAI\\OpenAI.ConsoleClient\\OpenAI.ConsoleClient.csproj": {
+    "C:\\Users\\Asus\\source\\repos\\OpenAI&ChatGPT\\OpenAI-Project\\OpenAI\\OpenAI.ConsoleClient\\OpenAI.ConsoleClient.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Asus\\source\\repos\\OpenAI&ChatGPT\\OpenAI\\OpenAI.ConsoleClient\\OpenAI.ConsoleClient.csproj",
+        "projectUniqueName": "C:\\Users\\Asus\\source\\repos\\OpenAI&ChatGPT\\OpenAI-Project\\OpenAI\\OpenAI.ConsoleClient\\OpenAI.ConsoleClient.csproj",
         "projectName": "OpenAI.ConsoleClient",
-        "projectPath": "C:\\Users\\Asus\\source\\repos\\OpenAI&ChatGPT\\OpenAI\\OpenAI.ConsoleClient\\OpenAI.ConsoleClient.csproj",
+        "projectPath": "C:\\Users\\Asus\\source\\repos\\OpenAI&ChatGPT\\OpenAI-Project\\OpenAI\\OpenAI.ConsoleClient\\OpenAI.ConsoleClient.csproj",
         "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Asus\\source\\repos\\OpenAI&ChatGPT\\OpenAI\\OpenAI.ConsoleClient\\obj\\",
+        "outputPath": "C:\\Users\\Asus\\source\\repos\\OpenAI&ChatGPT\\OpenAI-Project\\OpenAI\\OpenAI.ConsoleClient\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Asus\\AppData\\Roaming\\NuGet\\NuGet.Config",

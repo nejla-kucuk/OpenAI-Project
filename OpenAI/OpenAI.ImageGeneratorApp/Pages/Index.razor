@@ -1,0 +1,168 @@
+﻿@page "/"
+@using OpenAI.ObjectModels.RequestModels
+@using OpenAI.ObjectModels
+@using global::OpenAI.Interfaces
+@inject IOpenAIService OpenAIService
+
+<PageTitle>Image Generator</PageTitle>
+
+<div class="container">
+
+	<div class="header">
+		<h3>Image Generator</h3>
+	</div>
+
+
+	<div class="headline">
+		<p> Write your description, let our imagination bring it to life! 
+		    Creating unique visuals is noe breeze. Try it oıut and unleash your creativity!
+		</p>
+	</div>
+
+	<hr class="divider"/>
+
+	<div class="form-group">
+		<label for="promptInput">Prompt</label>
+		<textarea id="promptInput" @bind="usersPrompt"  class="form-control" rows="3">Prompt</textarea>
+	</div>
+
+	<div class="form-group">
+		<label for="exCountInput">Number of Images</label>
+		<input id="exCountInput" @bind="imageCount" class="form-control" type="number" />
+	</div>
+
+	@if (!isLoading)
+	{
+		<button class="btn btn-primary" @onclick="GenerateImages">Generate Images</button>
+
+		<div class="picture-container" @key="generatedImages">
+			@if(generatedImages is not null && generatedImages.Any()){
+				<div class="animated-pic-container">
+					
+					@foreach(var image in generatedImages)
+					{
+						<img class="dall-e-picture" src="@image" alt="Generated DALL-E Image" />
+					}
+				</div>
+			}
+		</div>
+
+	}
+	else
+	{
+		<div class="text-center">
+			<img class="img-thumbnail" src="./img/loading2.gif"/>
+			<p>Loading animation is created by <a src="https://dribbble.com/shots/2055128-Hop-Loading">Dawson</a></p>
+		</div>
+	}
+
+		
+</div>
+
+@code{
+	private bool isLoading = false;
+	private string usersPrompt = string.Empty;
+	private int imageCount = 3;
+	private List<string> generatedImages = new List<string>();
+
+	private async Task GenerateImages()
+	{
+		try
+		{
+			isLoading = true;
+
+			if (string.IsNullOrEmpty(usersPrompt) || string.IsNullOrWhiteSpace(usersPrompt))
+				return;
+
+
+			if (imageCount < 1 || imageCount > 6)
+				return;
+
+
+			var imageResult = await OpenAIService.Image.CreateImage(new ImageCreateRequest
+				{
+					Prompt = usersPrompt,
+					N = imageCount,
+					Size = StaticValues.ImageStatics.Size.Size256,
+					ResponseFormat = StaticValues.ImageStatics.ResponseFormat.Url,
+					User = "TestUser"
+				});
+
+
+			if (imageResult.Successful)
+			{
+				generatedImages = imageResult.Results.Select(r => r.Url).ToList();
+			}
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine(e);
+			throw;
+
+		}
+		finally
+		{
+			isLoading = false;
+		}
+	}
+
+
+}
+
+<style>
+	body{
+		font-family:Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+		background-color: white;
+		margin: 0;
+		padding: 0;
+	}
+
+	.container{
+		max-width:600px;
+		margin: 30px auto;
+		padding: 20px;
+		background-color: white;
+		box-shadow: 0 0 10px pink;
+		border-radius: 8px;
+	}
+
+	.header{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: 20px;
+	}
+
+	.headline{
+		font-size: 16px;
+		font-weight: 500;
+		color: black;
+		margin-bottom: 20px;
+	}
+
+	.divider{
+		margin: 20px 0;
+		border: none;
+		height:1px;
+		background-color: white;
+	}
+
+	.picture-container{
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
+	.btn{
+		margin-top: 10px;
+	}
+
+	.form-group{
+		margin-bottom: 10px;
+	}
+
+	.h3{
+		margin: 0;
+		font-weight: 500;
+	}
+</style>
